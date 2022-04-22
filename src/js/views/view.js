@@ -2,12 +2,15 @@ import icons from 'url:../../img/icons.svg';
 export default class View {
   _data;
 
-  render(data) {
+  render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0)) return this.renderError();
 
     this._data = data;
-    this.#clear();
     const markup = this._generateMarkup();
+
+    if (!render) return markup;
+
+    this.#clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
@@ -29,13 +32,12 @@ export default class View {
       // console.log(currEl, newEl.isEqualNode(currEl));
 
       // update text
-      if (!newEl.isEqualNode(currEl) && newEl?.firstChild.nodeValue.trim() !== '') {
+      if (!newEl.isEqualNode(currEl) && newEl?.firstChild?.nodeValue.trim() !== '') {
         currEl.textContent = newEl.textContent;
       }
 
       // updates changed attributes
       if (!newEl.isEqualNode(currEl)) {
-        console.log(newEl.attributes);
         Array.from(newEl.attributes).forEach(attr => currEl.setAttribute(attr.name, attr.value));
       }
     })
