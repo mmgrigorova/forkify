@@ -1,6 +1,6 @@
 import View from './View.js'
 import icons from 'url:../../img/icons.svg' // We need the new file name supplied by Parcel
-import { Fraction } from 'fractional';
+import {Fraction} from 'fractional';
 
 class RecipeView extends View {
     _parentElement = document.querySelector('.recipe');
@@ -71,7 +71,10 @@ class RecipeView extends View {
             </div>
           </div>
 
-          <div class="recipe__user-generated">
+            <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
+              <svg>
+               <use href="${icons}#icon-user"></use>
+              </svg>
           </div>
           <button class="btn--round btn--bookmark">
             <svg class="">
